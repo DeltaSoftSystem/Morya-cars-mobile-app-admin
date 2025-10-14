@@ -1,0 +1,11 @@
+Relationships Overview
+
+CarListing
+
+hasMany → CarImage
+hasMany → CarFeature
+hasMany → CarInspection
+CarImage, CarFeature, CarInspection
+belongsTo → CarListing
+CarListing
+belongsTo → User (Seller / Dealer)

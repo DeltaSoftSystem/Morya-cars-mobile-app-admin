@@ -1,0 +1,97 @@
+/* --- Body & Fonts --- */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa; /* light gray background */
+    color: #333333;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: #f1f3f5 !important; /* white navbar */
+    border-bottom: 1px solid #dee2e6; /* subtle border */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* --- Sidebar --- */
+.main-sidebar {
+    background-color: #e7e7e7 !important; /* light gray sidebar */
+    color: #495057;
+}
+
+.nav-sidebar .nav-item > .nav-link {
+    color: #495057;
+    border-radius: 6px;
+    margin: 2px 4px;
+}
+
+.nav-sidebar .nav-item > .nav-link:hover,
+.nav-sidebar .nav-item > .nav-link.active {
+    background-color: #e9ecef !important; /* hover gray */
+    color: #212529 !important;
+}
+
+/* --- Cards --- */
+.card {
+    background-color: #ffffff; /* white card */
+    border: 1px solid #dee2e6; /* subtle border */
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* --- Tables --- */
+.table-hover tbody tr:hover {
+    background-color: #f1f3f5; /* light gray hover */
+}
+
+/* --- Buttons --- */
+.btn-primary {
+    background-color: #495057 !important;
+    border: none !important;
+    border-radius: 6px !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover {
+    background-color: #343a40 !important;
+}
+
+/* --- Footer --- */
+.main-footer {
+    background-color: #ffffff;
+    border-top: 1px solid #dee2e6;
+    color: #6c757d;
+}
+
+/* --- Small adjustments --- */
+.content-wrapper {
+    background-color: #d5d5d5;
+}
+
+.form-control {
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+}
+
+.navbar-nav .nav-link {
+    color: #495057 !important;
+}
+
+span.brand-text.font-weight-light {
+    color: black;
+}
+
+/* Apply font to entire admin panel */
+body, 
+.navbar, 
+.main-sidebar, 
+.main-footer, 
+.card, 
+.table, 
+.btn {
+    font-family: 'Inter', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; /* bold headings */
+}
