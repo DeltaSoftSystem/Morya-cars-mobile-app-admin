@@ -16,11 +16,14 @@ class AdminOnly
      */
     public function handle(Request $request, Closure $next): Response
     {
-         if (Auth::check() && Auth::user()->role !== 'admin') {
+         if (!Auth::check()) {
+            return redirect()->route('login'); // or abort(401)
+        }
+
+        if (Auth::user()->role !== 'admin') {
             abort(403, 'Unauthorized');
         }
 
-        // Let guests be handled by 'auth' middleware
         return $next($request);
     }
 }

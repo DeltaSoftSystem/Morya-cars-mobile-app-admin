@@ -1,0 +1,43 @@
+{
+  "popular": [
+    { "name": "Mumbai", "icon": "mumbai.svg" },
+    { "name": "Bangalore", "icon": "bangalore.svg" },
+    { "name": "Delhi", "icon": "delhi.svg" },
+    { "name": "Pune", "icon": "pune.svg" },
+    { "name": "Navi Mumbai", "icon": "navi-mumbai.svg" },
+    { "name": "Hyderabad", "icon": "hyderabad.svg" },
+    { "name": "Ahmedabad", "icon": "ahmedabad.svg" },
+    { "name": "Chennai", "icon": "chennai.svg" },
+    { "name": "Kolkata", "icon": "kolkata.svg" },
+    { "name": "Chandigarh", "icon": "chandigarh.svg" }
+  ],
+  "all": [
+    "Agra","Agartala","Ahmednagar","Ajmer","Akola","Alappuzha","Alibaug","Aligarh","Allahabad",
+    "Alwar","Ambajogai","Ambala","Ambedkar Nagar","Ambikapur","Amravati","Amreli",
+    "Amritsar","Anand","Angul","Arrah","Asansol","Aurangabad","Azamgarh",
+    "Badaun","Bahadurgarh","Balasore","Ballia","Banda","Banswara","Barabanki",
+    "Bareilly","Bathinda","Beawar","Beed","Begusarai","Belgaum","Berhampur",
+    "Bhagalpur","Bharatpur","Bharuch","Bhavnagar","Bhilai","Bhilwara","Bhiwadi",
+    "Bhopal","Bhubaneswar","Bikaner","Bilaspur","Bokaro","Bulandshahar",
+    "Calicut","Chalakudy","Chandrapur","Chengalpattu","Chhindwara","Cuddalore",
+    "Dehradun","Dewas","Dhanbad","Dhule","Dibrugarh","Dindigul","Durgapur",
+    "Erode","Faridabad","Firozabad",
+    "Gandhinagar","Gaya","Ghaziabad","Goa","Gorakhpur","Guntur","Guwahati",
+    "Haldwani","Haridwar","Hassan","Hisar","Hosur","Howrah",
+    "Indore","Itanagar",
+    "Jabalpur","Jaipur","Jalandhar","Jammu","Jamshedpur","Jodhpur",
+    "Kanpur","Kanyakumari","Karnal","Kochi","Kolhapur","Kollam","Kota",
+    "Lucknow","Ludhiana",
+    "Madurai","Mangalore","Meerut","Moradabad","Mumbai","Mysore",
+    "Nagpur","Nashik","Nellore","Noida",
+    "Palakkad","Patiala","Patna","Pondicherry","Pune",
+    "Raipur","Rajkot","Ranchi","Rohtak",
+    "Salem","Shimla","Siliguri","Solapur","Surat",
+    "Thanjavur","Thrissur","Tirupati","Trivandrum",
+    "Udaipur","Ujjain",
+    "Vadodara","Varanasi","Vapi","Vijayawada","Visakhapatnam",
+    "Warangal",
+    "Yamuna Nagar",
+    "Zirakpur"
+  ]
+}

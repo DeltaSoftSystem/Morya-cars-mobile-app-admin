@@ -4,7 +4,11 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1>Edit Subscription Plan</h1>
+   
+<div class="row">
+    <div class="col-md-6 mx-auto">
+
+ 
 
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -17,8 +21,11 @@
     @endif
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Edit Subscription Plan</h3>
+        </div>
         <div class="card-body">
-            <form action="{{ route('admin.subscriptions.plans.update', $plan->id) }}" method="POST">
+            <form action="{{ route('admin.subscriptions_plans.update', $plan->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -42,10 +49,12 @@
                     <textarea name="features" id="features" class="form-control">{{ old('features', $plan->features) }}</textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update Plan</button>
-                <a href="{{ route('admin.subscriptions.plans.index') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Update Plan</button>
+                <a href="{{ route('admin.subscriptions_plans.index') }}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>
+</div>
+   </div>
 </div>
 @endsection

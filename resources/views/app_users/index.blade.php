@@ -50,12 +50,20 @@
                 </td>
                 <td>
                     <form action="{{ route('app-users.toggleStatus', $user->id) }}" method="POST" style="display:inline">
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-warning">
-                            {{ $user->status === 'active' ? 'Block' : 'Activate' }}
-                        </button>
-                    </form>
-                    <a href="{{ route('app-users.show', $user->id) }}" class="btn btn-sm btn-info">View</a>
+    @csrf
+    <button type="submit" class="btn btn-sm btn-warning">
+        @if($user->status === 'active')
+            <i class="fas fa-ban"></i> Block
+        @else
+            <i class="fas fa-check-circle"></i> Activate
+        @endif
+    </button>
+</form>
+
+<a href="{{ route('app-users.show', $user->id) }}" class="btn btn-sm btn-info">
+    <i class="fas fa-eye"></i> View
+</a>
+
                 </td>
             </tr>
             @endforeach

@@ -6,16 +6,23 @@
 <div class="container-fluid">
     
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+ @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
+
 
     <div class="card">
          <div class="card-header">
             <div class="row">
                 <div class="col-sm-6"><h3 class="card-title">Subscription Plans</h3></div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{ route('admin.subscriptions.plans.create') }}" class="btn btn-success btn-sm">
+                    <a href="{{ route('admin.subscriptions_plans.create') }}" class="btn btn-success btn-sm">
                         <i class="fas fa-plus"></i> Add New Plan
                     </a>
                 </div>
@@ -38,14 +45,14 @@
                     <tr>
                         <td>{{ $plan->id }}</td>
                         <td>{{ $plan->name }}</td>
-                        <td>${{ number_format($plan->price, 2) }}</td>
+                        <td>₹{{ number_format($plan->price, 2) }}</td>
                         <td>{{ $plan->validity_days }}</td>
                         <td>{{ $plan->features }}</td>
                         <td>
-                            <a href="{{ route('admin.subscriptions.plans.edit', $plan->id) }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('admin.subscriptions_plans.edit', $plan->id) }}" class="btn btn-primary btn-sm">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <form action="{{ route('admin.subscriptions.plans.destroy', $plan->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure to delete this plan?');">
+                            <form action="{{ route('admin.subscriptions_plans.destroy', $plan->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure to delete this plan?');">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</button>

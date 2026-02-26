@@ -29,7 +29,7 @@ class SubscriptionPlanController extends Controller
         ]);
 
         SubscriptionPlan::create($request->all());
-        return redirect()->route('subscription_plans.index')->with('success', 'Plan created successfully.');
+        return redirect()->route('admin.subscriptions_plans.index')->with('success', 'Plan created successfully.');
     }
 
     public function edit(SubscriptionPlan $plan)
@@ -47,12 +47,12 @@ class SubscriptionPlanController extends Controller
         ]);
 
         $plan->update($request->all());
-        return redirect()->route('subscription_plans.index')->with('success', 'Plan updated successfully.');
+        return redirect()->route('admin.subscriptions_plans.index')->with('success', 'Plan updated successfully.');
     }
 
     public function destroy(SubscriptionPlan $plan)
     {
         $plan->delete();
-        return redirect()->route('subscription_plans.index')->with('success', 'Plan deleted successfully.');
+        return redirect()->route('admin.subscriptions_plans.index')->with('success', 'Plan deleted successfully.');
     }
 }

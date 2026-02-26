@@ -9,7 +9,7 @@ class CarMake extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['name'];
+    protected $fillable = ['name','segment'];
     public function models()
     {
         return $this->hasMany(CarModel::class, 'make_id');

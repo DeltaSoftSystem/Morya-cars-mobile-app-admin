@@ -5,7 +5,10 @@
 @section('content')
 <div class="container-fluid">
     
-    @if ($errors->any())
+   
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+             @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
         @foreach ($errors->all() as $error)
@@ -15,14 +18,12 @@
     </div>
     @endif
 
-    <div class="row">
-        <div class="col-md-6 mx-auto">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Add New Subscription Plan</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.subscriptions.plans.store') }}" method="POST">
+                    <form action="{{ route('admin.subscriptions_plans.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="name">Plan Name</label>
@@ -45,7 +46,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Save Plan</button>
-                        <a href="{{ route('admin.subscriptions.plans.index') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('admin.subscriptions_plans.index') }}" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </div>

@@ -68,14 +68,16 @@
     </div>
 
     <div class="col-md-2">
-        <label>Status</label>
-        <select name="status" class="form-control">
-            <option value="">All</option>
-            <option value="pending" {{ request('status')=='pending'?'selected':'' }}>Pending</option>
-            <option value="approved" {{ request('status')=='approved'?'selected':'' }}>Approved</option>
-            <option value="rejected" {{ request('status')=='rejected'?'selected':'' }}>Rejected</option>
-        </select>
-    </div>
+    <label>Status</label>
+    <select name="status" class="form-control">
+        <option value="">All</option>
+        <option value="pending" {{ request('status')=='pending'?'selected':'' }}>Pending</option>
+        <option value="approved" {{ request('status')=='approved'?'selected':'' }}>Approved</option>
+        <option value="rejected" {{ request('status')=='rejected'?'selected':'' }}>Rejected</option>
+        <option value="inactive" {{ request('status')=='inactive'?'selected':'' }}>Inactive</option>
+    </select>
+</div>
+
 
     <div class="col-md-2">
         <label>Price Min</label>
@@ -101,7 +103,17 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Car Listings</h3>
+       <div class="d-flex justify-content-between mb-3">
+        <div class="card-title">Car Listings</div>
+
+         <a href="{{ route('admin.morya-cars.index') }}"
+           class="btn btn-info mr-2">
+            <i class="fas fa-car"></i> Morya Cars (Synced)
+        </a>
+
+        
+    </div>
+
        
     </div>
 
@@ -131,21 +143,51 @@
                     <td>{{ $car->model ?? '-' }}</td>
                     <td>{{ $car->year }}</td>
                     <td>
-                        <span class="badge 
-                        {{ $car->status=='approved'?'badge-success':($car->status=='rejected'?'badge-danger':'badge-warning') }}">
-                            {{ ucfirst($car->status) }}
-                        </span>
+                        @if($car->booking) 
+                            <span class="badge badge-danger">Booked</span>
+                        @else
+                            <span class="badge 
+                            {{ $car->status=='approved'?'badge-success':($car->status=='rejected'?'badge-danger':'badge-warning') }}">
+                                {{ ucfirst($car->status) }}
+                            </span>
+
+                            @if($car->pendingEditRequest)
+                                <br>
+                                <span class="badge badge-warning mt-1">
+                                    Edit Requested
+                                </span>
+                            @endif
+                        @endif
                     </td>
                     <td>
-                        <a href="{{ route('admin.car-listings.show', $car) }}" class="btn btn-info btn-sm">View</a>
+                        <a href="{{ route('admin.car-listings.show', $car) }}" class="btn btn-info btn-sm">
+                            <i class="fas fa-eye"></i> View
+                        </a>
 
-                        @if($car->status=='pending')
-                        <form action="{{ route('admin.car-listings.approve', $car) }}" method="POST" class="d-inline">
-                            @csrf
-                            <button type="submit" class="btn btn-success btn-sm">Approve</button>
-                        </form>
-                        <button class="btn btn-danger btn-sm" onclick="rejectCar({{ $car->id }})">Reject</button>
+                        {{-- Pending car approval --}}
+                        @if($car->status == 'pending')
+                            <form action="{{ route('admin.car-listings.approve', $car) }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="fas fa-check-circle"></i> Approve
+                                </button>
+                            </form>
+
+                            <button class="btn btn-danger btn-sm" onclick="rejectCar({{ $car->id }})">
+                                <i class="fas fa-times-circle"></i> Reject
+                            </button>
                         @endif
+
+                        {{-- Edit request actions --}}
+                        @if($car->pendingEditRequest)
+                            <button class="btn btn-warning btn-sm"
+                                data-toggle="modal"
+                                data-target="#editRequestModal{{ $car->id }}">
+                                <i class="fas fa-edit"></i> View Edit
+                            </button>
+                        @endif
+                    </td>
+
                     </td>
                 </tr>
                 @endforeach
@@ -158,7 +200,93 @@
         </div>
     </div>
 </div>
-@endsection
+
+@foreach($carListings as $car)
+@if($car->pendingEditRequest)
+<div class="modal fade" id="editRequestModal{{ $car->id }}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Request – Car #{{ $car->id }}</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Old Value</th>
+                            <th>New Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($car->pendingEditRequest->changes as $field => $values)
+                        <tr>
+                            <td>{{ ucfirst(str_replace('_',' ', $field)) }}</td>
+                            <td>
+                                @if(is_bool($values['old']) || in_array($values['old'], [0,1,'0','1'], true))
+                                    <span class="badge badge-{{ $values['old'] ? 'success' : 'danger' }}">
+                                        {{ $values['old'] ? 'Yes' : 'No' }}
+                                    </span>
+                                @else
+                                    {{ $values['old'] ?? '-' }}
+                                @endif
+                            </td>
+
+                            <td>
+                                @if(is_bool($values['new']) || in_array($values['new'], [0,1,'0','1'], true))
+                                    <span class="badge badge-{{ $values['new'] ? 'success' : 'danger' }}">
+                                        {{ $values['new'] ? 'Yes' : 'No' }}
+                                    </span>
+                                @else
+                                    {{ $values['new'] ?? '-' }}
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-between align-items-start">
+
+    {{-- APPROVE --}}
+    <form method="POST"
+          action="{{ route('admin.car-listings.edit-approve', $car->pendingEditRequest->id) }}">
+        @csrf
+        <button class="btn btn-success">
+            <i class="fas fa-check"></i> Approve Edit
+        </button>
+    </form>
+
+    {{-- REJECT --}}
+    <form method="POST"
+          action="{{ route('admin.car-listings.edit-reject', $car->pendingEditRequest->id) }}"
+          class="d-flex align-items-start">
+        @csrf
+
+        <input type="text"
+               name="reason"
+               class="form-control mr-2"
+               placeholder="Reject reason"
+               style="width: 200px;"
+               required>
+
+        <button class="btn btn-danger">
+            <i class="fas fa-times"></i> Reject
+        </button>
+    </form>
+
+</div>
+
+
+        </div>
+    </div>
+</div>
+@endif
+@endforeach
 
 @push('scripts')
 <script>
@@ -181,7 +309,7 @@ function rejectCar(carId){
     if(reason){
         let form = document.createElement('form');
         form.method = 'POST';
-        form.action = `/admin/car-listings/${carId}/reject`;
+        form.action = "{{ url('car-listings') }}/" + carId + "/reject";
 
         let token = document.createElement('input');
         token.type = 'hidden';
@@ -199,6 +327,7 @@ function rejectCar(carId){
         form.submit();
     }
 }
-</script>
 
+</script>
 @endpush
+@endsection
